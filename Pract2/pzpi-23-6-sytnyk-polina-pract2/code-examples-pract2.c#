@@ -1,1 +1,21 @@
+Приклад програмного коду
+using Telegram.Bot;
+using Telegram.Bot.Types;
+
+var botClient = new TelegramBotClient("YOUR_BOT_TOKEN");
+
+// Отримання оновлень
+var updates = await botClient.GetUpdatesAsync();
+
+foreach (var update in updates)
+{
+    if (update.Message?.Text != null)
+    {
+        // Відправка повідомлення
+        await botClient.SendTextMessageAsync(
+            chatId: update.Message.Chat.Id,
+            text: $"Ви написали: {update.Message.Text}"
+        );
+    }
+}
 
