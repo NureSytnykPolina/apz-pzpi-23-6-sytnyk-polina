@@ -1,1 +1,49 @@
+Приклад програмного коду
+interface IObserver
+{
+    void Update(string message);
+}
+
+class Subscriber : IObserver
+{
+    public void Update(string message)
+    {
+        Console.WriteLine("Отримано: " + message);
+    }
+}
+
+class Publisher
+{
+    private List<IObserver> observers = new List<IObserver>();
+
+    public void Subscribe(IObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void Notify(string msg)
+    {
+        foreach (var observer in observers)
+        {
+            observer.Update(msg);
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Publisher publisher = new Publisher();
+
+        Subscriber sub1 = new Subscriber();
+        Subscriber sub2 = new Subscriber();
+
+        publisher.Subscribe(sub1);
+        publisher.Subscribe(sub2);
+
+        publisher.Notify("Нове повідомлення!");
+    }
+}
+
 
